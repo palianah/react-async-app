@@ -7,6 +7,7 @@ It uses the jsonplaceholder api for:
 ##### 1. Users API: https://jsonplaceholder.typicode.com/users/
 ##### 2. Comments API: https://jsonplaceholder.typicode.com/posts?userId=
 
+It has a small filter to switch the ID, so the shown User and Comments are changed.
 
 ### How To Start App
 
