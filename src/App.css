@@ -1,32 +1,87 @@
+/* basic style for app */
+
+body {
+    background-color: rgba(233, 235, 238, 0.21);
+}
+
 .App {
-  text-align: center;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    margin: 30px auto;
+    max-width: 960px;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+h1 {
+    margin-bottom: 20px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+h2 {
+    padding: 0;
+    margin-bottom: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.error {
+    color: red;
+
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.input {
+    padding: 10px;
+    width: 250px;
+    height: 20px;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 50px;
 }
+
+.container {
+    border: 1px solid #dddfe2;
+    padding: 10px 15px;
+}
+
+.user {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.user__text {
+    padding: 0 30px;
+    font-weight: bold;
+    color: #365899;
+    margin: 0;
+}
+
+.user__text:first-child {
+    padding-left: 0;
+}
+
+.comment {
+    margin-bottom: 10px;
+}
+
+.comment:before {
+    color: #365899;
+    content: "“";
+    display: block;
+    font-size: 40px;
+    height: 0;
+    left: -20px;
+    position: relative;
+    top: 5px;
+}
+
+.comment__title {
+    color: #365899;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: bold;
+}
+
+.comment__body {
+    font-size: 14px;
+    font-style: italic;
+    line-height: 18px;
+}
+
+
