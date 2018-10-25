@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import './App.css';
 
-/*
- * TODO: split code/features to components if time left...
-*/
+import InputItem from './Components/InputItem';
+import UserData from './Components/UserData';
+import CommentList from './Components/CommentList';
 
 export default class App extends Component {
     /**
@@ -18,12 +18,8 @@ export default class App extends Component {
             isLoading: true,
             error: null,
             id: 1,
-            name: '',
-            username: '',
-            email: '',
-            address: [],
+            userData: {},
             userComments: []
-
         };
 
         // bind handleInputChange to use this
@@ -85,10 +81,7 @@ export default class App extends Component {
      */
     resetData() {
         this.setState({
-            name: '',
-            username: '',
-            email: '',
-            address: [],
+            userData: {},
             userComments: []
         });
     }
@@ -106,10 +99,12 @@ export default class App extends Component {
             switch (type) {
                 case "user":
                     this.setState({
-                        name: res.data.name,
-                        username: res.data.username,
-                        email: res.data.email,
-                        address: res.data.adress,
+                        userData: {
+                            name: res.data.name,
+                            username: res.data.username,
+                            email: res.data.email,
+                            address: res.data.adress
+                        },
                         error: null,
                         isLoading: false
                     });
@@ -149,75 +144,40 @@ export default class App extends Component {
      * @param e
      */
     handleInputChange(e) {
-        this.setState({ id: e.target.value });
-
-        // update data with a minimal interval
-        setTimeout(() => {
+        this.setState({ id: e.target.value }, () => {
             this.sendAxiosRequest();
-        }, 100);
+        });
     }
 
     /**
      * renter method
      */
     render() {
-        const { isLoading, error } = this.state;
-        const name = this.state.name;
-        const comments = this.state.userComments;
+        const { error } = this.state;
 
         return (
             <div className="App">
                 <h1>Fetch asynchronous data from an API (2h)</h1>
-
                 <p>Type in a random number, this user with the given number is fetched</p>
-                <input type="number"
-                       name="id"
-                       className="input"
-                       value={this.state.id}
-                       onChange={this.handleInputChange}
+
+                <InputItem
+                    inputValue={this.state.id}
+                    onInputChange={this.handleInputChange}
                 />
 
                 {error ? <p className="error">{error.message}</p> : null}
 
                 <div className="container">
+                    <UserData
+                        isLoading={this.state.isLoading}
+                        userData={this.state.userData}
+                    />
 
-                    <h2>User Data</h2>
-                    {!isLoading && name !== '' ? (
-
-                        <div className="user">
-                            <p className="user__text">
-                                <span>{this.state.name}</span>
-                            </p>
-                            <p className="user__text">
-                                <span>{this.state.username}</span>
-                            </p>
-                            <p className="user__text">
-                                <span>{this.state.email}</span>
-                            </p>
-                        </div>
-                    ): (
-                        <p className="error">Keinen Benutzer mit der ID {this.state.id} gefunden</p>
-                    )}
-
-                    <h2>Comments (first five)</h2>
-                    {!isLoading && comments.length > 0 ? (
-                        comments.slice(0, 5).map(comment => {
-                            const { id, title, body } = comment;
-
-                            return(
-                                <blockquote className="comment" key={id}>
-                                    <p className="comment__title">
-                                        {title}
-                                    </p>
-                                    <p className="comment__body">
-                                        {body}
-                                    </p>
-                                </blockquote>
-                            )
-                        })
-                    ): (
-                        <p className="error">Keine Kommentare mit der ID {this.state.id} gefunden</p>
-                    )}
+                    <CommentList
+                        isLoading={this.state.isLoading}
+                        userId={this.state.id}
+                        comments={this.state.userComments}
+                    />
                 </div>
             </div>
         );
