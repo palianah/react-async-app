@@ -19,7 +19,7 @@ const UserData = props => {
                     </p>
                 </div>
             ): (
-                <p className="error">Keinen Benutzer mit der ID {props.userData.userId} gefunden</p>
+                <p className="error">Keinen Benutzer mit der ID {props.userId} gefunden</p>
             )}
         </div>
     );

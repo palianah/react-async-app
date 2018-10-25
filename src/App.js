@@ -171,6 +171,7 @@ export default class App extends Component {
                     <UserData
                         isLoading={this.state.isLoading}
                         userData={this.state.userData}
+                        userId={this.state.id}
                     />
 
                     <CommentList
